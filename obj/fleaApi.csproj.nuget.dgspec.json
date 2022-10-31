@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\FleaApp_Api\\fleaApi\\fleaApi.csproj": {}
+    "E:\\Projects\\FleaApp_Api\\fleaApi.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\FleaApp_Api\\fleaApi\\fleaApi.csproj": {
+    "E:\\Projects\\FleaApp_Api\\fleaApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\FleaApp_Api\\fleaApi\\fleaApi.csproj",
+        "projectUniqueName": "E:\\Projects\\FleaApp_Api\\fleaApi.csproj",
         "projectName": "fleaApi",
-        "projectPath": "E:\\Projects\\FleaApp_Api\\fleaApi\\fleaApi.csproj",
+        "projectPath": "E:\\Projects\\FleaApp_Api\\fleaApi.csproj",
         "packagesPath": "C:\\Users\\abdul\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\FleaApp_Api\\fleaApi\\obj\\",
+        "outputPath": "E:\\Projects\\FleaApp_Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\abdul\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -76,7 +76,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

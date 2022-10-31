@@ -1,4 +1,7 @@
 using fleaApi.Data;
+using FleaApp_Api.Helpers;
+using FleaApp_Api.Interfaces;
+using FleaApp_Api.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace fleaApi.Extensions
@@ -15,6 +18,10 @@ namespace fleaApi.Extensions
             services.AddControllers();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
+
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             return services;
         }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using fleaApi.Data;
 
@@ -10,9 +11,10 @@ using fleaApi.Data;
 namespace fleaApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20221019161502_AddedMarketEntity")]
+    partial class AddedMarketEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
@@ -36,7 +38,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("MarketId");
 
-                    b.ToTable("GeoLocations");
+                    b.ToTable("GeoLocation");
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Market", b =>
@@ -51,9 +53,6 @@ namespace fleaApi.Data.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Desc")
                         .HasColumnType("TEXT");
 
@@ -62,12 +61,6 @@ namespace fleaApi.Data.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("isDisabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("isOpen")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
