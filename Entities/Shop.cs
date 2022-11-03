@@ -2,14 +2,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FleaApp_Api.Entities
 {
-    [Table("Markets")]
-    public class Market
+    [Table("Shops")]
+    public class Shop
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Desc { get; set; }
-        public string Country { get; set; }
-        public string City { get; set; }
+        public string Desc { get; set; }        
         public string Location { get; set; }
         public bool isOpen { get; set; }
         public bool isDisabled { get; set; }
@@ -17,7 +15,9 @@ namespace FleaApp_Api.Entities
 
 
         public ICollection<GeoLocation> Points { get; set; }
-        public ICollection<Shop> Shop { get; set; }
+        public Market Market { get; set; }
+        public int MarketId { get; set; }
+        public ICollection<Product> Product { get; set; }
         public ICollection<Photo> Photos { get; set; }
     }
 }

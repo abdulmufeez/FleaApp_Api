@@ -43,7 +43,7 @@ namespace FleaApp_Api.Controllers
         {   
             var markets = await _uow.MarketRepo.GetMarketsAsync(marketParams);
             Response.AddPaginationHeader(markets.CurrentPage, markets.PageSize, markets.TotalCount,
-                markets.TotalCount);
+                markets.TotalPages);
             
             if (markets.Count > 0) return Ok(markets);
             

@@ -18,7 +18,16 @@ namespace FleaApp_Api.Helpers
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
             
             CreateMap<GeoLocationDto, GeoLocation>();       
-            CreateMap<GeoLocation, GeoLocationDto>();       
+            CreateMap<GeoLocation, GeoLocationDto>();
+
+            CreateMap<Shop, ShopDto>()
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));               
+            CreateMap<ShopDto, Shop>()
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
+            CreateMap<CreateShopDto, Shop>()
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));            
+            CreateMap<UpdateShopDto, Shop>()
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));               
         }
     }
 }

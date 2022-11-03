@@ -15,6 +15,7 @@ namespace FleaApp_Api.Repositories
         }
 
         public IMarketRepo MarketRepo => new MarketRepo(_context, _mapper);
+        public IShopRepo ShopRepo => new ShopRepo(_context, _mapper);
 
         public async Task<bool> Complete()
         {

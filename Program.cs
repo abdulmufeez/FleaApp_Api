@@ -11,7 +11,10 @@ await app.UseAutoMigrateAsync();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(opts => 
+    {
+        opts.RoutePrefix = "swagger";
+    });
 }
 
 app.UseHttpsRedirection();
