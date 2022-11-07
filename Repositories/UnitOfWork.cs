@@ -17,6 +17,12 @@ namespace FleaApp_Api.Repositories
         public IMarketRepo MarketRepo => new MarketRepo(_context, _mapper);
         public IShopRepo ShopRepo => new ShopRepo(_context, _mapper);
 
+        public ICategoryRepo CategoryRepo => new CategoryRepo(_context, _mapper);
+
+        public ISubCategoryRepo SubCategoryRepo => new SubCategoryRepo(_context, _mapper);
+
+        public IProductRepo ProductRepo => throw new NotImplementedException();
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

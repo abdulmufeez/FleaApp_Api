@@ -25,7 +25,7 @@ namespace FleaApp_Api.Controllers
 
             if (shop is not null) return shop;
 
-            return BadRequest("There is no findings");
+            return NotFound("There is no findings :)");
         }
 
         [HttpGet("get-shop-by-name/{name}")]
@@ -35,7 +35,7 @@ namespace FleaApp_Api.Controllers
 
             if (shop is not null) return shop;
 
-            return BadRequest("There is no findings");
+            return NotFound("There is no findings :)");
         }
 
         [HttpGet]

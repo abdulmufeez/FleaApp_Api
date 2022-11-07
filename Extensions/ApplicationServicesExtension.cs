@@ -2,6 +2,7 @@ using fleaApi.Data;
 using FleaApp_Api.Helpers;
 using FleaApp_Api.Interfaces;
 using FleaApp_Api.Repositories;
+using FleaApp_Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace fleaApi.Extensions
@@ -20,8 +21,10 @@ namespace fleaApi.Extensions
             services.AddSwaggerGen();
 
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPhotoService, PhotoService>();
             
             return services;
         }

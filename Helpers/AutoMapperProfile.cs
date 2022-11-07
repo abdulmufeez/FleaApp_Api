@@ -27,7 +27,17 @@ namespace FleaApp_Api.Helpers
             CreateMap<CreateShopDto, Shop>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));            
             CreateMap<UpdateShopDto, Shop>()
-                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));               
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points)); 
+
+            CreateMap<Category, CategoryDto>();
+            CreateMap<CategoryDto, Category>();             
+            CreateMap<UpdateCategoryDto, Category>();
+
+            CreateMap<SubCategory, SubCategoryDto>()
+                .ForMember(d => d.CategoryId, o => o.MapFrom(s => s.Category.Id));
+            CreateMap<SubCategoryDto, SubCategory>();                
+            CreateMap<CreateSubCategoryDto, SubCategory>();
+            CreateMap<UpdateSubCategoryDto, SubCategory>();
         }
     }
 }

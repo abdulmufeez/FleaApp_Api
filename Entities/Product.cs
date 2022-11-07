@@ -14,6 +14,8 @@ namespace FleaApp_Api.Entities
 
         public Shop Shop { get; set; }
         public int ShopId { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        //public ICollection<Photo> Photos { get; set; }
+        public SubCategory SubCategory { get; set; }
+        public int SubCategoryId { get; set; }
     }
 }

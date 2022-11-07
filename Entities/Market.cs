@@ -18,6 +18,6 @@ namespace FleaApp_Api.Entities
 
         public ICollection<GeoLocation> Points { get; set; }
         public ICollection<Shop> Shop { get; set; }
-        public ICollection<Photo> Photos { get; set; }
+        //public ICollection<Photo> Photos { get; set; }
     }
 }

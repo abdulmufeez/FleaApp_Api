@@ -25,7 +25,7 @@ namespace FleaApp_Api.Controllers
 
             if (market is not null) return market;
 
-            return BadRequest("There is no findings");
+            return NotFound("There is no findings :)");
         }
 
         [HttpGet("get-market-by-name/{name}")]
@@ -35,7 +35,7 @@ namespace FleaApp_Api.Controllers
 
             if (market is not null) return market;
 
-            return BadRequest("There is no findings");
+            return NotFound("There is no findings :)");
         }
 
         [HttpGet]

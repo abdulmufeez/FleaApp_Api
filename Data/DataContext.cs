@@ -8,6 +8,10 @@ namespace fleaApi.Data
         public DbSet<Market> Markets { get; set; }
         public DbSet<Shop> Shops { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Product> Products { get; set; }
+
         public DbSet<GeoLocation> GeoLocations { get; set; }
         public DataContext(DbContextOptions options) : base(options)
         {
