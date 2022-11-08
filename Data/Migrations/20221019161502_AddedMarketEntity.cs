@@ -31,7 +31,7 @@ namespace fleaApi.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Longtitude = table.Column<float>(type: "REAL", nullable: false),
+                    Longitude = table.Column<float>(type: "REAL", nullable: false),
                     Latitude = table.Column<float>(type: "REAL", nullable: false),
                     MarketId = table.Column<int>(type: "INTEGER", nullable: true)
                 },

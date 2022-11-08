@@ -13,6 +13,6 @@ namespace FleaApp_Api.Interfaces
         Task<ProductDto> GetProductAsync(int id);
         Task<Product> GetProduct(int id);
 
-        Task<PagedList<ProductDto>> GetShopsAsync(ProductParams productParams);
+        Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams);
     }
 }

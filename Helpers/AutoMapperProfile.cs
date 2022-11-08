@@ -38,6 +38,13 @@ namespace FleaApp_Api.Helpers
             CreateMap<SubCategoryDto, SubCategory>();                
             CreateMap<CreateSubCategoryDto, SubCategory>();
             CreateMap<UpdateSubCategoryDto, SubCategory>();
+
+            CreateMap<Product, ProductDto>()
+                .ForMember(d => d.ShopId, o => o.MapFrom(s => s.Shop.Id))
+                .ForMember(d => d.SubCategoryId, o => o.MapFrom(s => s.SubCategory.Id));
+            CreateMap<ProductDto, Product>();                
+            CreateMap<CreateProductDto, Product>();
+            CreateMap<UpdateProductDto, Product>();
         }
     }
 }

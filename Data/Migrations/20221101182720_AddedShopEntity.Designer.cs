@@ -28,7 +28,7 @@ namespace fleaApi.Data.Migrations
                     b.Property<float>("Latitude")
                         .HasColumnType("REAL");
 
-                    b.Property<float>("Longtitude")
+                    b.Property<float>("Longitude")
                         .HasColumnType("REAL");
 
                     b.Property<int?>("MarketId")

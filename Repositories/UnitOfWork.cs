@@ -21,7 +21,7 @@ namespace FleaApp_Api.Repositories
 
         public ISubCategoryRepo SubCategoryRepo => new SubCategoryRepo(_context, _mapper);
 
-        public IProductRepo ProductRepo => throw new NotImplementedException();
+        public IProductRepo ProductRepo => new ProductRepo(_context, _mapper);
 
         public async Task<bool> Complete()
         {

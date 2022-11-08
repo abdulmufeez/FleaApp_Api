@@ -68,6 +68,9 @@ namespace FleaApp_Api.Repositories
                 .Where(m => m.isDisabled == false && m.isOpen == true)
                 .AsQueryable();
 
+            if (shopParams.SearchByMarketId > 0)
+                query = query.Where(q => q.MarketId == shopParams.SearchByMarketId);
+
             if (!string.IsNullOrWhiteSpace(shopParams.Search))
                 query = query.Where(q => q.Name.Contains(shopParams.Search));                        
 
