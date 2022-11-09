@@ -7,9 +7,11 @@ namespace FleaApp_Api.Dtos
         public string Desc { get; set; }
         public bool isSoldOut { get; set; } 
         public DateTime CreatedAt { get; set; } 
+        public string MainPhotoUrl { get; set; }
 
         
         public int ShopId { get; set; }
         public int SubCategoryId { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
     }
 }

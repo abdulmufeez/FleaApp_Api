@@ -9,8 +9,11 @@ namespace FleaApp_Api.Dtos
         public string City { get; set; }
         public string Location { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string MainPhotoUrl { get; set; }
 
 
-        public List<GeoLocationDto> Points { get; set; }
+        public ICollection<GeoLocationDto> Points { get; set; }
+        public ICollection<PhotoDto> Photos { get; set; }
+        public ICollection<ShopDto> Shops { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace FleaApp_Api.Repositories
             return await _context.Shops
                 .Include(s => s.Points)
                 .Include(s => s.Market)
+                .Include(s => s.Photos)
                 .SingleOrDefaultAsync(s => s.Id == id);
         }
 
@@ -41,6 +42,7 @@ namespace FleaApp_Api.Repositories
         {
             var shop =_context.Shops
                 .Include(x => x.Points)
+                .Include(x => x.Photos)
                 .Where(m => m.Name == name)
                 .ProjectTo<ShopDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -53,6 +55,7 @@ namespace FleaApp_Api.Repositories
         {
              var shop =_context.Shops
                 .Include(x => x.Points)
+                .Include(x => x.Photos)
                 .Where(m => m.Id == id)
                 .ProjectTo<ShopDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -65,6 +68,7 @@ namespace FleaApp_Api.Repositories
         {
              var query = _context.Shops
                 .Include(m => m.Points)
+                .Include(x => x.Photos)
                 .Where(m => m.isDisabled == false && m.isOpen == true)
                 .AsQueryable();
 

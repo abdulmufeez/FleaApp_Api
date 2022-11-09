@@ -23,6 +23,8 @@ namespace FleaApp_Api.Repositories
 
         public IProductRepo ProductRepo => new ProductRepo(_context, _mapper);
 
+        public IPhotoRepo PhotoRepo => new PhotoRepo(_context);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

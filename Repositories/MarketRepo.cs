@@ -34,7 +34,10 @@ namespace FleaApp_Api.Repositories
 
         public async Task<Market> GetMarket(int id)
         {
-            return await _context.Markets.Include(x => x.Points)
+            return await _context.Markets
+                .Include(x => x.Points)
+                .Include(x => x.Photos)
+                .Include(X => X.Shop)
                 .SingleOrDefaultAsync(m => m.Id == id);
         }
 
@@ -42,6 +45,8 @@ namespace FleaApp_Api.Repositories
         {
             var market =_context.Markets
                 .Include(x => x.Points)
+                .Include(x => x.Photos)
+                .Include(x => x.Shop)
                 .Where(m => m.Name == name)
                 .ProjectTo<MarketDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -54,6 +59,8 @@ namespace FleaApp_Api.Repositories
         {
             var market =_context.Markets
                 .Include(x => x.Points)
+                .Include(x => x.Photos)
+                .Include(x => x.Shop)
                 .Where(m => m.Id == id)
                 .ProjectTo<MarketDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -65,7 +72,9 @@ namespace FleaApp_Api.Repositories
         public async Task<PagedList<MarketDto>> GetMarketsAsync(MarketParams marketParams)
         {
             var query = _context.Markets
-                .Include(m => m.Points)
+                // .Include(m => m.Points)
+                // .Include(x => x.Photos)
+                // .Include(x => x.Shop)
                 .Where(m => m.isDisabled == false && m.isOpen == true)
                 .AsQueryable();
 

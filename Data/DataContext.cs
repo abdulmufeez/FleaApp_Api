@@ -12,6 +12,7 @@ namespace fleaApi.Data
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<GeoLocation> GeoLocations { get; set; }
         public DataContext(DbContextOptions options) : base(options)
         {

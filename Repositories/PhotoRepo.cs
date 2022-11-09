@@ -1,6 +1,8 @@
 using fleaApi.Data;
+using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;
 using FleaApp_Api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleaApp_Api.Repositories
 {
@@ -12,14 +14,20 @@ namespace FleaApp_Api.Repositories
             _context = context;
         }
 
-        public Task<Photo> GetPhotoById(int id)
+        public async Task<Photo> GetPhotoById(int id)
+        {
+            return await _context.Photos
+                .SingleOrDefaultAsync(p => p.Id == id);
+        }
+
+        public Task<IEnumerable<PhotoDto>> GetPhotos()
         {
             throw new NotImplementedException();
         }
 
         public void RemovePhoto(Photo photo)
         {
-            throw new NotImplementedException();
+            _context.Photos.Remove(photo);
         }
     }
 }

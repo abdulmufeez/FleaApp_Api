@@ -7,9 +7,11 @@ namespace FleaApp_Api.Dtos
         public string Desc { get; set; }        
         public string Location { get; set; }        
         public DateTime CreatedAt { get; set; }
+        public string MainPhotoUrl { get; set; }
+        public int MarketId { get; set; }  
 
-
-        public List<GeoLocationDto> Points { get; set; }        
-        public int MarketId { get; set; }
+        public ICollection<GeoLocationDto> Points { get; set; }        
+        public ICollection<PhotoDto> Photos { get; set; }                      
+        public ICollection<ProductDto> Products { get; set; }
     }
 }

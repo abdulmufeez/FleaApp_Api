@@ -33,6 +33,7 @@ namespace FleaApp_Api.Repositories
         {
             return await _context.Products
                 .Include(x => x.Shop)
+                .Include(x => x.Photos)
                 .Include(x => x.SubCategory)
                 .Where(p => p.Id == id)
                 .SingleOrDefaultAsync();
@@ -41,6 +42,7 @@ namespace FleaApp_Api.Repositories
         public async Task<ProductDto> GetProductAsync(string name)
         {
             return await _context.Products
+                .Include(x => x.Photos)
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                 .Where(p => p.Name.Contains(name))
                 .SingleOrDefaultAsync();            
@@ -49,6 +51,7 @@ namespace FleaApp_Api.Repositories
         public async Task<ProductDto> GetProductAsync(int id)
         {
             return await _context.Products
+                .Include(x => x.Photos)
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id == id);                
         }
@@ -57,6 +60,7 @@ namespace FleaApp_Api.Repositories
         {
             var products = _context.Products
                 .Include(x => x.Shop)
+                .Include(x => x.Photos)
                 .Include(x => x.SubCategory)
                 .AsQueryable();
 

@@ -9,7 +9,9 @@ namespace FleaApp_Api.Helpers
         public AutoMapperProfile()
         {
             CreateMap<Market, MarketDto>()
-                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
+                .ForMember(d => d.MainPhotoUrl, o => o.MapFrom(s => s.Photos.SingleOrDefault(p => p.IsMain).Url))
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points))
+                .ForMember(d => d.Shops, o => o.MapFrom(s => s.Shop.Where(x => x.MarketId == s.Id)));
             CreateMap<MarketDto, Market>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
             CreateMap<CreateMarketDto, Market>()
@@ -19,8 +21,10 @@ namespace FleaApp_Api.Helpers
             
             CreateMap<GeoLocationDto, GeoLocation>();       
             CreateMap<GeoLocation, GeoLocationDto>();
+            CreateMap<Photo, PhotoDto>();
 
             CreateMap<Shop, ShopDto>()
+                .ForMember(d => d.MainPhotoUrl, o => o.MapFrom(s => s.Photos.SingleOrDefault(p => p.IsMain).Url))
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));               
             CreateMap<ShopDto, Shop>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
@@ -40,6 +44,7 @@ namespace FleaApp_Api.Helpers
             CreateMap<UpdateSubCategoryDto, SubCategory>();
 
             CreateMap<Product, ProductDto>()
+                .ForMember(d => d.MainPhotoUrl, o => o.MapFrom(s => s.Photos.SingleOrDefault(p => p.IsMain).Url))
                 .ForMember(d => d.ShopId, o => o.MapFrom(s => s.Shop.Id))
                 .ForMember(d => d.SubCategoryId, o => o.MapFrom(s => s.SubCategory.Id));
             CreateMap<ProductDto, Product>();                
