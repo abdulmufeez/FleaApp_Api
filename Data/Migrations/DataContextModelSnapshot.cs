@@ -31,7 +31,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>
@@ -58,7 +58,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("GeoLocations");
+                    b.ToTable("GeoLocations", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Market", b =>
@@ -93,7 +93,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Markets");
+                    b.ToTable("Markets", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Photo", b =>
@@ -132,7 +132,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photos", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Product", b =>
@@ -165,7 +165,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("SubCategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Shop", b =>
@@ -199,7 +199,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("MarketId");
 
-                    b.ToTable("Shops");
+                    b.ToTable("Shops", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.SubCategory", b =>
@@ -221,7 +221,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubCategories");
+                    b.ToTable("SubCategories", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>

@@ -25,6 +25,8 @@ namespace FleaApp_Api.Repositories
 
         public IPhotoRepo PhotoRepo => new PhotoRepo(_context);
 
+        public IGeoCordinatesRepo GeoCordinatesRepo => new GeoCordinatesRepo (_context, _mapper);
+
         public async Task<bool> Complete()
         {
             return await _context.SaveChangesAsync() > 0;

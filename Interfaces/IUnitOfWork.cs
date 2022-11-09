@@ -8,6 +8,7 @@ namespace FleaApp_Api.Interfaces
         ISubCategoryRepo SubCategoryRepo { get; }
         IProductRepo ProductRepo { get; }
         IPhotoRepo PhotoRepo { get; }
+        IGeoCordinatesRepo GeoCordinatesRepo { get; }
 
         Task<bool> Complete();
         bool HasChanges();
