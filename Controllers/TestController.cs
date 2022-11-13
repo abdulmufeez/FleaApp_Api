@@ -9,14 +9,15 @@ namespace FleaApp_Api.Controllers
         [Authorize(Policy = "RequireAdminRole")]
         public ActionResult GetAdmin()        
         {
-            return Ok("Only admin can see this");
+            return BadRequest("Only admin can see this");
         }
 
         [HttpGet("shopkeeper")]
         [Authorize(Policy = "RequireShopKeeperRole")]
         public ActionResult GetShop()        
         {
-            return Ok("Only shopleeper can see this");
+            //return BadRequest("Only shopleeper can see this");
+            throw new Exception();
         }
     }
 }
