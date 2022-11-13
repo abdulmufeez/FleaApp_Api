@@ -12,6 +12,7 @@ namespace FleaApp_Api.Entities
         public string PublicId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+        public AppUser User { get; set; }        
         public Market Market { get; set; }        
         public Shop Shop { get; set; }        
         public Product Product { get; set; }        

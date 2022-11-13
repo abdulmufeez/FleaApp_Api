@@ -5,6 +5,7 @@ using FleaApp_Api.Extensions;
 using FleaApp_Api.Helpers;
 using FleaApp_Api.Interfaces;
 using FleaApp_Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleaApp_Api.Controllers
@@ -21,6 +22,7 @@ namespace FleaApp_Api.Controllers
             _photoService = photoService;
         }
 
+        [Authorize]
         [HttpGet("get-shop-by-id/{id}", Name = "GetShop")]
         public async Task<ActionResult<ShopDto>> GetShop(int id)
         {
@@ -31,6 +33,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize]
         [HttpGet("get-shop-by-name/{name}")]
         public async Task<ActionResult<ShopDto>> GetShop(string name)
         {
@@ -41,6 +44,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ShopDto>>> GetShops([FromQuery] ShopParams shopParams)
         {
@@ -52,6 +56,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpPost("create-shop")]
         public async Task<ActionResult> CreateShop(CreateShopDto shopDto)
         {
@@ -68,6 +73,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Creating entity");
         }
 
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpPut("update-shop")]
         public async Task<ActionResult> UpdateShop(UpdateShopDto updateShop)
         {
@@ -82,6 +88,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Updating entity");
         }
 
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpDelete("delete-shop/{id}")]
         public async Task<ActionResult> DeleteShop(int id)
         {
@@ -94,6 +101,7 @@ namespace FleaApp_Api.Controllers
         }
 
         //photo
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm]CreatePhotoDto photoDto)
         { 
@@ -119,6 +127,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Problem Adding Photo");
         }
 
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpPut("set-main-photo")]
         public async Task<ActionResult> SetMainPhoto(SetPhotoMainDto photoMainDto)
         {
@@ -139,6 +148,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Failed to set main photo");
         }
 
+        [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpDelete("delete-photo")]
         public async Task<ActionResult> DeletePhoto(DeletePhotoDto photoDto)
         {

@@ -2,6 +2,7 @@ using AutoMapper;
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;
 using FleaApp_Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleaApp_Api.Controllers
@@ -16,6 +17,7 @@ namespace FleaApp_Api.Controllers
             _uow = uow;
         }
 
+        [Authorize]
         [HttpGet("get-category-by-id/{id}")]
         public async Task<ActionResult<CategoryDto>> GetCategoryAsync(int id)
         {
@@ -26,6 +28,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize]
         [HttpGet("get-category-by-name/{name}")]
         public async Task<ActionResult<CategoryDto>> GetCategoryAsync(string name)
         {
@@ -36,6 +39,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategoriesAsync()
         {
@@ -46,6 +50,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("create-category/{name}")]
         public async Task<ActionResult> CreateCategory(string name)
         {
@@ -64,6 +69,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Creating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("update-category")]
         public async Task<ActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
@@ -78,6 +84,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Updating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("delete-category/{id}")]
         public async Task<ActionResult> DeleteCategory(int id)
         {

@@ -1,5 +1,6 @@
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleaApp_Api.Controllers
@@ -12,6 +13,7 @@ namespace FleaApp_Api.Controllers
             _uow = uow;
         }
 
+        [Authorize]
         [HttpGet("get-location-of-market/{id}")]
         public async Task<ActionResult<IEnumerable<GeoLocationDto>>> GetMarketGeoLocation(int id)
         {
@@ -22,6 +24,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("There is no findings :)");
         }
 
+        [Authorize]
         [HttpGet("get-location-of-shop/{id}")]
         public async Task<ActionResult<IEnumerable<GeoLocationDto>>> GetShopGeoLocation(int id)
         {

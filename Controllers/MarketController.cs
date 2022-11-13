@@ -5,6 +5,7 @@ using FleaApp_Api.Extensions;
 using FleaApp_Api.Helpers;
 using FleaApp_Api.Interfaces;
 using FleaApp_Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleaApp_Api.Controllers
@@ -21,6 +22,7 @@ namespace FleaApp_Api.Controllers
             _uow = uow;
         }
         
+        [Authorize]
         [HttpGet("get-market-by-id/{id}", Name = "GetMarket")]
         public async Task<ActionResult<MarketDto>> GetMarket(int id)
         {
@@ -31,6 +33,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize]
         [HttpGet("get-market-by-name/{name}")]
         public async Task<ActionResult<MarketDto>> GetMarket(string name)
         {
@@ -41,6 +44,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MarketDto>>> GetMarkets ([FromQuery] MarketParams marketParams)
         {   
@@ -53,6 +57,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("create-market")]
         public async Task<ActionResult> CreateMarket(CreateMarketDto marketDto)
         {
@@ -76,6 +81,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Creating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("update-market")]
         public async Task<ActionResult> UpdateMarket(UpdateMarketDto updateMarket)
         {
@@ -91,6 +97,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Updating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]        
         [HttpDelete("delete-market/{id}")]
         public async Task<ActionResult> DeleteMarket(int id)
         {
@@ -103,6 +110,7 @@ namespace FleaApp_Api.Controllers
         }
 
         //photo
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm]CreatePhotoDto photoDto)
         { 
@@ -128,6 +136,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Problem Adding Photo");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("set-main-photo")]
         public async Task<ActionResult> SetMainPhoto(SetPhotoMainDto photoMainDto)
         {
@@ -148,6 +157,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Failed to set main photo");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("delete-photo")]
         public async Task<ActionResult> DeletePhoto(DeletePhotoDto photoDto)
         {

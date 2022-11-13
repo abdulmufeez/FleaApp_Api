@@ -2,6 +2,7 @@ using AutoMapper;
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;
 using FleaApp_Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FleaApp_Api.Controllers
@@ -16,6 +17,7 @@ namespace FleaApp_Api.Controllers
             _uow = uow;
         }
 
+        [Authorize]
         [HttpGet("get-subcategory-by-id/{id}")]
         public async Task<ActionResult<SubCategoryDto>> GetSubCategoryAsync(int id)
         {
@@ -26,6 +28,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize]
         [HttpGet("get-subcategory-by-name/{name}")]
         public async Task<ActionResult<SubCategoryDto>> GetSubCategoryAsync(string name)
         {
@@ -36,6 +39,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubCategoryDto>>> GetSubCategoriesAsync()
         {
@@ -46,6 +50,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [AllowAnonymous]
         [HttpGet("get-subcategories-by-categoryId/{id}")]
         public async Task<ActionResult<IEnumerable<SubCategoryDto>>> GetSubCategoriesAsync(int id)
         {
@@ -56,6 +61,7 @@ namespace FleaApp_Api.Controllers
             return NotFound("There is no findings :)");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("create-subcategory")]
         public async Task<ActionResult> CreateSubCategory(CreateSubCategoryDto createSubCategoryDto)
         {
@@ -72,6 +78,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Creating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpPut("update-subcategory")]
         public async Task<ActionResult> UpdateSubCategory(UpdateSubCategoryDto updateSubCategoryDto)
         {
@@ -86,6 +93,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Updating entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("delete-subcategory/{id}")]
         public async Task<ActionResult> DeleteSubCategory(int id)
         {

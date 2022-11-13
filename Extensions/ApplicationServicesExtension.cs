@@ -1,8 +1,11 @@
 using fleaApi.Data;
+using FleaApp_Api.Data.SeedData;
+using FleaApp_Api.Entities;
 using FleaApp_Api.Helpers;
 using FleaApp_Api.Interfaces;
 using FleaApp_Api.Repositories;
 using FleaApp_Api.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace fleaApi.Extensions
@@ -17,6 +20,7 @@ namespace fleaApi.Extensions
                 options.UseSqlite(config.GetConnectionString("DefaultConnection"));
             });
             services.AddControllers();
+            services.AddCors();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
@@ -25,6 +29,7 @@ namespace fleaApi.Extensions
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ITokenService, TokenService>();
             
             return services;
         }
@@ -36,13 +41,12 @@ namespace fleaApi.Extensions
             try
             {
                 var context = services.GetRequiredService<DataContext>();
-                // var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                // var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-                //seeding data 
-                //await Seed.SeedAppUsers(userManager, roleManager);
-                //await Seed.SeedUserProfiles(context);
-
                 await context.Database.MigrateAsync();
+
+                var userManager = services.GetRequiredService<UserManager<AppUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+                //seeding data 
+                await SeedData.SeedAppUser(userManager, roleManager);                            
             }
             catch (Exception ex)
             {
