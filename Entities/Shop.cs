@@ -14,6 +14,8 @@ namespace FleaApp_Api.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
 
+        public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
         public ICollection<GeoLocation> Points { get; set; }
         public Market Market { get; set; }
         public int MarketId { get; set; }

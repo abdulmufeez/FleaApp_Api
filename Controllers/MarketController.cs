@@ -71,6 +71,7 @@ namespace FleaApp_Api.Controllers
                 market.CreatedAt = DateTime.Now;
                 market.isOpen = true;
                 market.isDisabled = false;
+                market.AppUserId = User.GetAppUserId();
 
                 _uow.MarketRepo.AddMarket(market);
                 if (await _uow.Complete()) 
@@ -90,6 +91,8 @@ namespace FleaApp_Api.Controllers
             market.Name = market.Name.ToLower();
             market.City = market.City.ToLower();
             market.Country = market.Country.ToLower();
+            market.AppUserId = User.GetAppUserId();
+            
             _uow.MarketRepo.UpdateMarket(market);
 
             if (await _uow.Complete()) return Ok("Successfully updated");

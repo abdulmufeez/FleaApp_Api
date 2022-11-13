@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace FleaApp_Api.Helpers
+namespace FleaApp_Api.Extensions
 {
     public static class ClaimPrincipleExtension
     {

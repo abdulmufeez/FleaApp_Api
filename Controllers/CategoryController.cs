@@ -1,6 +1,7 @@
 using AutoMapper;
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;
+using FleaApp_Api.Extensions;
 using FleaApp_Api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -58,7 +59,8 @@ namespace FleaApp_Api.Controllers
             {
                 var category = new Category
                 {
-                    Name = name.ToLower()
+                    Name = name.ToLower(),
+                    AppUserId = User.GetAppUserId()
                 };
 
                 _uow.CategoryRepo.AddCategory(category);
@@ -76,6 +78,7 @@ namespace FleaApp_Api.Controllers
             var category = await _uow.CategoryRepo.GetCategory(updateCategoryDto.Id);
             _mapper.Map(updateCategoryDto, category);
             category.Name = category.Name.ToLower();
+            category.AppUserId = User.GetAppUserId();
 
             _uow.CategoryRepo.UpdateCategory(category);
 

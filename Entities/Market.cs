@@ -15,7 +15,8 @@ namespace FleaApp_Api.Entities
         public bool isDisabled { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-
+        public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
         public ICollection<GeoLocation> Points { get; set; }
         public ICollection<Shop> Shop { get; set; }
         public ICollection<Photo> Photos { get; set; }

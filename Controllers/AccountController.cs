@@ -88,6 +88,8 @@ namespace FleaApp_Api.Controllers
 
             if (user == null) return Unauthorized("Invalid Username");
 
+            if(user.isDisabled) return BadRequest("Your account has been disabled ;)");
+
             var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
             if (!result.Succeeded) return Unauthorized("Invalid password");

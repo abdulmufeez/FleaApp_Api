@@ -1,6 +1,7 @@
 using AutoMapper;
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;
+using FleaApp_Api.Extensions;
 using FleaApp_Api.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,7 @@ namespace FleaApp_Api.Controllers
             {
                 var subcategory = _mapper.Map<SubCategory>(createSubCategoryDto);
                 subcategory.CreatedAt = DateTime.Now;
+                subcategory.AppUserId = User.GetAppUserId();
 
                 _uow.SubCategoryRepo.AddSubCategory(subcategory);
                 if (await _uow.Complete()) return Ok("Successfully Added");
@@ -85,6 +87,7 @@ namespace FleaApp_Api.Controllers
             var subcategory = await _uow.SubCategoryRepo.GetSubCategory(updateSubCategoryDto.Id);
             _mapper.Map(updateSubCategoryDto, subcategory);
             subcategory.Name = subcategory.Name.ToLower();
+            subcategory.AppUserId = User.GetAppUserId();
 
             _uow.SubCategoryRepo.UpdateSubCategory(subcategory);
 

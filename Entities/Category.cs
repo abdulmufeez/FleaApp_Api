@@ -9,6 +9,9 @@ namespace FleaApp_Api.Entities
         public string Name { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
+
+        public AppUser AppUser { get; set; }
+        public int AppUserId { get; set; }
         public ICollection<SubCategory> SubCategory { get; set; }
     }
 }

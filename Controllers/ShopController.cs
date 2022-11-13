@@ -66,6 +66,7 @@ namespace FleaApp_Api.Controllers
             shop.CreatedAt = DateTime.Now;
             shop.isOpen = true;
             shop.isDisabled = false;
+            shop.AppUserId = User.GetAppUserId();
 
             _uow.ShopRepo.AddShop(shop);
             if (await _uow.Complete()) return Ok("Successfully Added");
@@ -80,6 +81,7 @@ namespace FleaApp_Api.Controllers
             var shop = await _uow.ShopRepo.GetShop(updateShop.Id);
             _mapper.Map(updateShop, shop);
             shop.Name = shop.Name.ToLower();
+            shop.AppUserId = User.GetAppUserId();
             
             _uow.ShopRepo.UpdateShop(shop);
 
