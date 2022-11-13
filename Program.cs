@@ -33,4 +33,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+//app.MapFallbackToController("Index","Fallback"); 
+
 app.Run();
