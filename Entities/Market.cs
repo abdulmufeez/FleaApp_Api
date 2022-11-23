@@ -18,7 +18,7 @@ namespace FleaApp_Api.Entities
 
         public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }
-        public ICollection<GeoLocation> Points { get; set; }
+        public ICollection<Point> Points { get; set; }
         public ICollection<Shop> Shop { get; set; }
         public ICollection<Photo> Photos { get; set; }
     }

@@ -12,7 +12,7 @@ namespace FleaApp_Api.Dtos
         public string MainPhotoUrl { get; set; }
 
 
-        public ICollection<GeoLocationDto> Points { get; set; }
+        public ICollection<PointDto> Points { get; set; }
         public ICollection<PhotoDto> Photos { get; set; }
         public ICollection<ShopDto> Shops { get; set; }
     }

@@ -79,7 +79,7 @@ namespace FleaApp_Api.Controllers
                     item.Status = StatusEnum.Boundry;
                 }
                 market.Points.Add(
-                    new GeoLocation
+                    new Point
                     {
                         Latitude = marketDto.CenterPoint.Latitude,
                         Longitude = marketDto.CenterPoint.Longitude,
@@ -116,7 +116,7 @@ namespace FleaApp_Api.Controllers
                 if (updateMarket.CenterPoint is not null)
                 {
                     market.Points.Add(
-                    new GeoLocation
+                    new Point
                     {
                         Latitude = updateMarket.CenterPoint.Latitude,
                         Longitude = updateMarket.CenterPoint.Longitude,

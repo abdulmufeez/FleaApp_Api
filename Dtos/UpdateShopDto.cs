@@ -6,9 +6,9 @@ namespace FleaApp_Api.Dtos
         public string Name { get; set; }
         public string Desc { get; set; }
         public string Location { get; set; }
-        public GeoLocationDto CenterPoint { get; set; }     
+        public PointDto CenterPoint { get; set; }     
                 
 
-        public ICollection<GeoLocationDto> Points { get; set; }
+        public ICollection<PointDto> Points { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace FleaApp_Api.Controllers
 
         [Authorize]
         [HttpGet("get-location-of-market/{id}")]
-        public async Task<ActionResult<IEnumerable<GeoLocationDto>>> GetMarketGeoLocation(int id)
+        public async Task<ActionResult<IEnumerable<PointDto>>> GetMarketGeoLocation(int id)
         {
             var cordinates = await _uow.GeoCordinatesRepo.GetMarketCordinate(id);
 
@@ -26,7 +26,7 @@ namespace FleaApp_Api.Controllers
 
         [Authorize]
         [HttpGet("get-location-of-shop/{id}")]
-        public async Task<ActionResult<IEnumerable<GeoLocationDto>>> GetShopGeoLocation(int id)
+        public async Task<ActionResult<IEnumerable<PointDto>>> GetShopGeoLocation(int id)
         {
             var cordinates = await _uow.GeoCordinatesRepo.GetShopCordinate(id);
 

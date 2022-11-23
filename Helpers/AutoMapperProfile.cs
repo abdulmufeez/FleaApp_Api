@@ -19,8 +19,8 @@ namespace FleaApp_Api.Helpers
             CreateMap<UpdateMarketDto, Market>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
             
-            CreateMap<GeoLocationDto, GeoLocation>();       
-            CreateMap<GeoLocation, GeoLocationDto>();
+            CreateMap<PointDto, Point>();       
+            CreateMap<Point, PointDto>();
             CreateMap<Photo, PhotoDto>();
 
             CreateMap<Shop, ShopDto>()

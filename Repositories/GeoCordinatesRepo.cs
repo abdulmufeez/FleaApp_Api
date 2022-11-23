@@ -17,21 +17,21 @@ namespace FleaApp_Api.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<GeoLocationDto>> GetMarketCordinate(int id)
+        public async Task<IEnumerable<PointDto>> GetMarketCordinate(int id)
         {
             return await _context.GeoLocations
                 .Where(x => x.MarketId == id)
                 .OrderBy(x => x.Id)
-                .ProjectTo<GeoLocationDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<PointDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<GeoLocationDto>> GetShopCordinate(int id)
+        public async Task<IEnumerable<PointDto>> GetShopCordinate(int id)
         {
             return await _context.GeoLocations
                 .Where(x => x.ShopId == id)
                 .OrderBy(x => x.Id)
-                .ProjectTo<GeoLocationDto>(_mapper.ConfigurationProvider)
+                .ProjectTo<PointDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
     }

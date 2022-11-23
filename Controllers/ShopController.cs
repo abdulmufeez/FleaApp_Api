@@ -75,7 +75,7 @@ namespace FleaApp_Api.Controllers
                 item.MarketId = shop.MarketId;
             }
             shop.Points.Add(
-                new GeoLocation
+                new Point
                 {
                     Latitude = shopDto.CenterPoint.Latitude,
                     Longitude = shopDto.CenterPoint.Longitude,
@@ -112,7 +112,7 @@ namespace FleaApp_Api.Controllers
                 if (updateShop.CenterPoint is not null)
                 {
                     shop.Points.Add(
-                    new GeoLocation
+                    new Point
                     {
                         Latitude = updateShop.CenterPoint.Latitude,
                         Longitude = updateShop.CenterPoint.Longitude,

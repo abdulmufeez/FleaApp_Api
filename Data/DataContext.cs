@@ -17,7 +17,7 @@ namespace fleaApi.Data
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<GeoLocation> GeoLocations { get; set; }
+        public DbSet<Point> GeoLocations { get; set; }
         public DataContext(DbContextOptions options) : base(options)
         {
         }
