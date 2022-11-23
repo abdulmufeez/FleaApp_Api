@@ -13,7 +13,7 @@ namespace FleaApp_Api.Controllers
     public class MarketController : BaseController
     {
         private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;        
+        private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         public MarketController(IUnitOfWork uow, IMapper mapper, IPhotoService photoService)
         {
@@ -21,7 +21,7 @@ namespace FleaApp_Api.Controllers
             _mapper = mapper;
             _uow = uow;
         }
-        
+
         [Authorize]
         [HttpGet("get-market-by-id/{id}", Name = "GetMarket")]
         public async Task<ActionResult<MarketDto>> GetMarket(int id)
@@ -46,14 +46,14 @@ namespace FleaApp_Api.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MarketDto>>> GetMarkets ([FromQuery] MarketParams marketParams)
-        {   
+        public async Task<ActionResult<IEnumerable<MarketDto>>> GetMarkets([FromQuery] MarketParams marketParams)
+        {
             var markets = await _uow.MarketRepo.GetMarketsAsync(marketParams);
             Response.AddPaginationHeader(markets.CurrentPage, markets.PageSize, markets.TotalCount,
                 markets.TotalPages);
-            
+
             if (markets.Count > 0) return Ok(markets);
-            
+
             return NotFound("There is no findings :)");
         }
 
@@ -61,9 +61,9 @@ namespace FleaApp_Api.Controllers
         [HttpPost("create-market")]
         public async Task<ActionResult> CreateMarket(CreateMarketDto marketDto)
         {
-            marketDto.Name = marketDto.Name.ToLower(); 
+            marketDto.Name = marketDto.Name.ToLower();
             marketDto.City = marketDto.City.ToLower();
-            marketDto.Country = marketDto.Country.ToLower();            
+            marketDto.Country = marketDto.Country.ToLower();
 
             if (!await _uow.MarketRepo.MarketExists(marketDto.Name))
             {
@@ -73,11 +73,24 @@ namespace FleaApp_Api.Controllers
                 market.isDisabled = false;
                 market.AppUserId = User.GetAppUserId();
 
+                market.Points.First().Status = StatusEnum.EntryPoint;
+                foreach (var item in market.Points.Skip(1))
+                {
+                    item.Status = StatusEnum.Boundry;
+                }
+                market.Points.Add(
+                    new GeoLocation
+                    {
+                        Latitude = marketDto.CenterPoint.Latitude,
+                        Longitude = marketDto.CenterPoint.Longitude,
+                        Status = StatusEnum.CenterPoint
+                    });
+
                 _uow.MarketRepo.AddMarket(market);
-                if (await _uow.Complete()) 
+                if (await _uow.Complete())
                     return Ok("Successfully Added");                                //RedirectToAction("AddPhoto", new {market.Id, marketDto.Photo});
             }
-            else return BadRequest("Name already exists");   
+            else return BadRequest("Name already exists");
 
             return BadRequest("Error Creating entity");
         }
@@ -92,7 +105,26 @@ namespace FleaApp_Api.Controllers
             market.City = market.City.ToLower();
             market.Country = market.Country.ToLower();
             market.AppUserId = User.GetAppUserId();
-            
+
+            if (updateMarket.Points.Count > 0)
+            {
+                market.Points.First().Status = StatusEnum.EntryPoint;
+                foreach (var item in market.Points.Skip(1))
+                {
+                    item.Status = StatusEnum.Boundry;
+                }
+                if (updateMarket.CenterPoint is not null)
+                {
+                    market.Points.Add(
+                    new GeoLocation
+                    {
+                        Latitude = updateMarket.CenterPoint.Latitude,
+                        Longitude = updateMarket.CenterPoint.Longitude,
+                        Status = StatusEnum.CenterPoint
+                    });
+                }
+            }
+
             _uow.MarketRepo.UpdateMarket(market);
 
             if (await _uow.Complete()) return Ok("Successfully updated");
@@ -100,7 +132,7 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error Updating entity");
         }
 
-        [Authorize(Policy = "RequireAdminRole")]        
+        [Authorize(Policy = "RequireAdminRole")]
         [HttpDelete("delete-market/{id}")]
         public async Task<ActionResult> DeleteMarket(int id)
         {
@@ -115,18 +147,18 @@ namespace FleaApp_Api.Controllers
         //photo
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm]CreatePhotoDto photoDto)
-        { 
+        public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm] CreatePhotoDto photoDto)
+        {
             var market = await _uow.MarketRepo.GetMarket(photoDto.Id);
             var result = await _photoService.AddPhotoAsync(photoDto.Photo);
-            
+
             if (result.Error is not null) return BadRequest(result.Error.Message);
 
             var photo = new Photo
             {
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
-            };            
+            };
 
             market.Photos.Add(photo);
 
@@ -153,9 +185,9 @@ namespace FleaApp_Api.Controllers
 
             if (currentMainPhoto != null) currentMainPhoto.IsMain = false;
 
-            photo.IsMain = true;            
+            photo.IsMain = true;
 
-            if (await _uow.Complete()) return Ok($"Set {photo.Url} as main profile pic");            
+            if (await _uow.Complete()) return Ok($"Set {photo.Url} as main profile pic");
 
             return BadRequest("Failed to set main photo");
         }
@@ -176,8 +208,8 @@ namespace FleaApp_Api.Controllers
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }
             market.Photos.Remove(photo);
-            
-            if (await _uow.Complete()) return Ok("Successfully deleted photo");            
+
+            if (await _uow.Complete()) return Ok("Successfully deleted photo");
 
             return BadRequest("Error deleting the photo");
         }

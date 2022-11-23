@@ -19,9 +19,22 @@ namespace FleaApp_Api.Repositories
             _context = context;
         }
 
-        public void AddShop(Shop shop)
+        public async Task<bool> AddShop(Shop shop)
         {
-            _context.Shops.AddAsync(shop);
+            foreach (var item in shop.Points)
+            {
+                var point = await _context.GeoLocations
+                    .Where(x => x.Latitude == item.Latitude && 
+                        x.Longitude == item.Longitude).SingleOrDefaultAsync();
+                
+                if(point is not null)
+                {                    
+                    return false;                                        
+                }
+            }
+
+            await _context.Shops.AddAsync(shop);
+            return true;
         }
 
         public void DeleteShop(Shop shop)
@@ -90,9 +103,38 @@ namespace FleaApp_Api.Repositories
                     shopParams.PageNumber, shopParams.PageSize);
         }
 
-        public void UpdateShop(Shop shop)
+        public async Task<bool> UpdateShop(Shop shop)
         {
+            // foreach (var item in shop.Points)
+            // {
+            //     var point = await _context.GeoLocations
+            //         .Where(x => x.Latitude == item.Latitude && 
+            //             x.Longitude == item.Longitude && 
+            //             x.MarketId == item.MarketId &&
+            //             x.Status == StatusEnum.Way).SingleOrDefaultAsync();
+                
+            //     if(point is not null)
+            //     {
+            //         point.ShopId = item.ShopId;
+            //         point.Status = StatusEnum.Boundry;
+
+            //         shop.Points.Remove(item);
+            //     }
+            // }
+            foreach (var item in shop.Points)
+            {
+                var point = await _context.GeoLocations
+                    .Where(x => x.Latitude == item.Latitude && 
+                        x.Longitude == item.Longitude).SingleOrDefaultAsync();
+                
+                if(point is not null)
+                {                    
+                    return false;                                        
+                }
+            }
+
             _context.Shops.Update(shop);
+            return true;
         }
     }
 }

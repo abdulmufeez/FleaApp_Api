@@ -68,10 +68,29 @@ namespace FleaApp_Api.Controllers
             shop.isDisabled = false;
             shop.AppUserId = User.GetAppUserId();
 
-            _uow.ShopRepo.AddShop(shop);
-            if (await _uow.Complete()) return Ok("Successfully Added");
+            //shop.Points.First().Status = StatusEnum.EntryPoint;
+            foreach (var item in shop.Points)
+            {
+                item.Status = StatusEnum.Boundry;
+                item.MarketId = shop.MarketId;
+            }
+            shop.Points.Add(
+                new GeoLocation
+                {
+                    Latitude = shopDto.CenterPoint.Latitude,
+                    Longitude = shopDto.CenterPoint.Longitude,
+                    Status = StatusEnum.CenterPoint,
+                    MarketId = shop.MarketId
+                });
 
-            return BadRequest("Error Creating entity");
+            if (await _uow.ShopRepo.AddShop(shop))
+            {
+                if (await _uow.Complete()) return Ok("Successfully Added");
+
+                return BadRequest("Error Creating entity");
+            }
+
+            return BadRequest("You must step on another one's property when creating your property!");
         }
 
         [Authorize(Policy = "RequireShopKeeperRole")]
@@ -82,12 +101,34 @@ namespace FleaApp_Api.Controllers
             _mapper.Map(updateShop, shop);
             shop.Name = shop.Name.ToLower();
             shop.AppUserId = User.GetAppUserId();
-            
-            _uow.ShopRepo.UpdateShop(shop);
 
-            if (await _uow.Complete()) return Ok("Successfully updated");
+            if (updateShop.Points.Count > 0)
+            {
+                //shop.Points.First().Status = StatusEnum.EntryPoint;
+                foreach (var item in shop.Points)
+                {
+                    item.Status = StatusEnum.Boundry;                    
+                }
+                if (updateShop.CenterPoint is not null)
+                {
+                    shop.Points.Add(
+                    new GeoLocation
+                    {
+                        Latitude = updateShop.CenterPoint.Latitude,
+                        Longitude = updateShop.CenterPoint.Longitude,
+                        Status = StatusEnum.CenterPoint
+                    });
+                }
+            }
 
-            return BadRequest("Error Updating entity");
+            if (await _uow.ShopRepo.UpdateShop(shop))
+            {
+                if (await _uow.Complete()) return Ok("Successfully Added");
+
+                return BadRequest("Error Creating entity");
+            }
+
+            return BadRequest("You must step on another one's property when creating your property!");
         }
 
         [Authorize(Policy = "RequireShopKeeperRole")]
@@ -105,18 +146,18 @@ namespace FleaApp_Api.Controllers
         //photo
         [Authorize(Policy = "RequireShopKeeperRole")]
         [HttpPost("add-photo")]
-        public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm]CreatePhotoDto photoDto)
-        { 
+        public async Task<ActionResult<PhotoDto>> AddPhoto([FromForm] CreatePhotoDto photoDto)
+        {
             var shop = await _uow.ShopRepo.GetShop(photoDto.Id);
             var result = await _photoService.AddPhotoAsync(photoDto.Photo);
-            
+
             if (result.Error is not null) return BadRequest(result.Error.Message);
 
             var photo = new Photo
             {
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
-            };            
+            };
 
             shop.Photos.Add(photo);
 
@@ -143,9 +184,9 @@ namespace FleaApp_Api.Controllers
 
             if (currentMainPhoto != null) currentMainPhoto.IsMain = false;
 
-            photo.IsMain = true;            
+            photo.IsMain = true;
 
-            if (await _uow.Complete()) return Ok($"Set {photo.Url} as main profile pic");            
+            if (await _uow.Complete()) return Ok($"Set {photo.Url} as main profile pic");
 
             return BadRequest("Failed to set main photo");
         }
@@ -166,8 +207,8 @@ namespace FleaApp_Api.Controllers
                 if (result.Error != null) return BadRequest(result.Error.Message);
             }
             shop.Photos.Remove(photo);
-            
-            if (await _uow.Complete()) return Ok("Successfully deleted photo");            
+
+            if (await _uow.Complete()) return Ok("Successfully deleted photo");
 
             return BadRequest("Error deleting the photo");
         }

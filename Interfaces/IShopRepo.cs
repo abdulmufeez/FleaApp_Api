@@ -6,8 +6,8 @@ namespace FleaApp_Api.Interfaces
 {
     public interface IShopRepo
     {
-        void AddShop (Shop shop);
-        void UpdateShop (Shop shop);
+        Task<bool> AddShop (Shop shop);
+        Task<bool> UpdateShop (Shop shop);
         void DeleteShop (Shop shop);        
         Task<ShopDto> GetShopAsync (string name);
         Task<ShopDto> GetShopAsync (int id);     

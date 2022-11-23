@@ -1,4 +1,3 @@
-using AutoMapper;
 using fleaApi.Data;
 using FleaApp_Api.Dtos;
 using FleaApp_Api.Entities;

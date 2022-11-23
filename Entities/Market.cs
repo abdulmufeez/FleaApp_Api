@@ -14,6 +14,7 @@ namespace FleaApp_Api.Entities
         public bool isOpen { get; set; }
         public bool isDisabled { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        
 
         public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }

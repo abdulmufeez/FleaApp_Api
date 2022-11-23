@@ -2523,11 +2523,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\Projects\\FleaApp_Api\\fleaApi.csproj",
+      "projectUniqueName": "E:\\Projects\\FleaApp_Api\\fleaApi.csproj",
       "projectName": "fleaApi",
-      "projectPath": "e:\\Projects\\FleaApp_Api\\fleaApi.csproj",
+      "projectPath": "E:\\Projects\\FleaApp_Api\\fleaApi.csproj",
       "packagesPath": "C:\\Users\\abdul\\.nuget\\packages\\",
-      "outputPath": "e:\\Projects\\FleaApp_Api\\obj\\",
+      "outputPath": "E:\\Projects\\FleaApp_Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\abdul\\AppData\\Roaming\\NuGet\\NuGet.Config"
