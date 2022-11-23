@@ -99,6 +99,11 @@ namespace FleaApp_Api.Repositories
         public async Task<bool> MarketExists(string name) 
             => await _context.Markets.AnyAsync(m => m.Name.Contains(name));
 
+        public void RemoveWay(Point point)
+        {
+            _context.Points.Remove(point);
+        }
+
         public void UpdateMarket(Market market)
         {
             _context.Markets.Update(market);

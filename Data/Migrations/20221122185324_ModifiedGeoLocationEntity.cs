@@ -4,19 +4,19 @@
 
 namespace fleaApi.Data.Migrations
 {
-    public partial class ModifiedGeoLocationEntity : Migration
+    public partial class ModifiedPointEntity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
                 name: "Neighbors",
-                table: "GeoLocations",
+                table: "Points",
                 type: "TEXT",
                 nullable: true);
 
             migrationBuilder.AddColumn<int>(
                 name: "Status",
-                table: "GeoLocations",
+                table: "Points",
                 type: "INTEGER",
                 nullable: false,
                 defaultValue: 0);
@@ -26,11 +26,11 @@ namespace fleaApi.Data.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Neighbors",
-                table: "GeoLocations");
+                table: "Points");
 
             migrationBuilder.DropColumn(
                 name: "Status",
-                table: "GeoLocations");
+                table: "Points");
         }
     }
 }

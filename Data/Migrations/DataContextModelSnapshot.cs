@@ -158,7 +158,7 @@ namespace fleaApi.Data.Migrations
                     b.ToTable("Categories", (string)null);
                 });
 
-            modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>
+            modelBuilder.Entity("FleaApp_Api.Entities.Point", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,7 +188,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("ShopId");
 
-                    b.ToTable("GeoLocations", (string)null);
+                    b.ToTable("Points", (string)null);
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Market", b =>
@@ -492,7 +492,7 @@ namespace fleaApi.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>
+            modelBuilder.Entity("FleaApp_Api.Entities.Point", b =>
                 {
                     b.HasOne("FleaApp_Api.Entities.Market", "Market")
                         .WithMany("Points")

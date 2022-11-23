@@ -23,7 +23,7 @@ namespace FleaApp_Api.Repositories
         {
             foreach (var item in shop.Points)
             {
-                var point = await _context.GeoLocations
+                var point = await _context.Points
                     .Where(x => x.Latitude == item.Latitude && 
                         x.Longitude == item.Longitude).SingleOrDefaultAsync();
                 
@@ -107,7 +107,7 @@ namespace FleaApp_Api.Repositories
         {
             // foreach (var item in shop.Points)
             // {
-            //     var point = await _context.GeoLocations
+            //     var point = await _context.Points
             //         .Where(x => x.Latitude == item.Latitude && 
             //             x.Longitude == item.Longitude && 
             //             x.MarketId == item.MarketId &&
@@ -123,7 +123,7 @@ namespace FleaApp_Api.Repositories
             // }
             foreach (var item in shop.Points)
             {
-                var point = await _context.GeoLocations
+                var point = await _context.Points
                     .Where(x => x.Latitude == item.Latitude && 
                         x.Longitude == item.Longitude).SingleOrDefaultAsync();
                 

@@ -19,7 +19,7 @@ namespace FleaApp_Api.Repositories
 
         public async Task<IEnumerable<PointDto>> GetMarketCordinate(int id)
         {
-            return await _context.GeoLocations
+            return await _context.Points
                 .Where(x => x.MarketId == id)
                 .OrderBy(x => x.Id)
                 .ProjectTo<PointDto>(_mapper.ConfigurationProvider)
@@ -28,7 +28,7 @@ namespace FleaApp_Api.Repositories
 
         public async Task<IEnumerable<PointDto>> GetShopCordinate(int id)
         {
-            return await _context.GeoLocations
+            return await _context.Points
                 .Where(x => x.ShopId == id)
                 .OrderBy(x => x.Id)
                 .ProjectTo<PointDto>(_mapper.ConfigurationProvider)

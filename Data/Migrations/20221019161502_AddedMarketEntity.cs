@@ -26,7 +26,7 @@ namespace fleaApi.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GeoLocation",
+                name: "Point",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -37,24 +37,24 @@ namespace fleaApi.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GeoLocation", x => x.Id);
+                    table.PrimaryKey("PK_Point", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GeoLocation_Markets_MarketId",
+                        name: "FK_Point_Markets_MarketId",
                         column: x => x.MarketId,
                         principalTable: "Markets",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GeoLocation_MarketId",
-                table: "GeoLocation",
+                name: "IX_Point_MarketId",
+                table: "Point",
                 column: "MarketId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GeoLocation");
+                name: "Point");
 
             migrationBuilder.DropTable(
                 name: "Markets");

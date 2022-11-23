@@ -11,7 +11,7 @@ namespace fleaApi.Data.Migrations
         {
             migrationBuilder.AddColumn<int>(
                 name: "ShopId",
-                table: "GeoLocations",
+                table: "Points",
                 type: "INTEGER",
                 nullable: true);
 
@@ -41,8 +41,8 @@ namespace fleaApi.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GeoLocations_ShopId",
-                table: "GeoLocations",
+                name: "IX_Points_ShopId",
+                table: "Points",
                 column: "ShopId");
 
             migrationBuilder.CreateIndex(
@@ -52,8 +52,8 @@ namespace fleaApi.Data.Migrations
                 unique: false);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_GeoLocations_Shops_ShopId",
-                table: "GeoLocations",
+                name: "FK_Points_Shops_ShopId",
+                table: "Points",
                 column: "ShopId",
                 principalTable: "Shops",
                 principalColumn: "Id");
@@ -62,19 +62,19 @@ namespace fleaApi.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_GeoLocations_Shops_ShopId",
-                table: "GeoLocations");
+                name: "FK_Points_Shops_ShopId",
+                table: "Points");
 
             migrationBuilder.DropTable(
                 name: "Shops");
 
             migrationBuilder.DropIndex(
-                name: "IX_GeoLocations_ShopId",
-                table: "GeoLocations");
+                name: "IX_Points_ShopId",
+                table: "Points");
 
             migrationBuilder.DropColumn(
                 name: "ShopId",
-                table: "GeoLocations");
+                table: "Points");
         }
     }
 }

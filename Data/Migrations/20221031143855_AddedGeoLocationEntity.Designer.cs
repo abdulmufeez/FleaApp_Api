@@ -11,15 +11,15 @@ using fleaApi.Data;
 namespace fleaApi.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221031143855_AddedGeoLocationEntity")]
-    partial class AddedGeoLocationEntity
+    [Migration("20221031143855_AddedPointEntity")]
+    partial class AddedPointEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
 
-            modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>
+            modelBuilder.Entity("FleaApp_Api.Entities.Point", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace fleaApi.Data.Migrations
 
                     b.HasIndex("MarketId");
 
-                    b.ToTable("GeoLocations");
+                    b.ToTable("Points");
                 });
 
             modelBuilder.Entity("FleaApp_Api.Entities.Market", b =>
@@ -67,7 +67,7 @@ namespace fleaApi.Data.Migrations
                     b.ToTable("Markets");
                 });
 
-            modelBuilder.Entity("FleaApp_Api.Entities.GeoLocation", b =>
+            modelBuilder.Entity("FleaApp_Api.Entities.Point", b =>
                 {
                     b.HasOne("FleaApp_Api.Entities.Market", null)
                         .WithMany("Points")

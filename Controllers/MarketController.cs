@@ -144,6 +144,62 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error deleting entity");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPut("make-way")]
+        public async Task<ActionResult> MakeWay(MakeWayDto wayDto)
+        {
+            var market = await _uow.MarketRepo.GetMarket(wayDto.MarketId);
+
+            if (wayDto.WayPoints.Count > 0)
+            {
+                foreach (var wayPoint in wayDto.WayPoints)
+                {
+                    market.Points.Add(
+                    new Point
+                    {
+                        Latitude = wayPoint.Longitude,
+                        Longitude = wayPoint.Longitude,
+                        Status = StatusEnum.Way,
+                        MarketId = wayDto.MarketId
+                    });
+                }
+            }
+
+            _uow.MarketRepo.UpdateMarket(market);
+
+            if (await _uow.Complete()) return Ok("Successfully created way");
+
+            return BadRequest("Error creating way");
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpDelete("remove-way")]
+        public async Task<ActionResult> RemoveWay(MakeWayDto wayDto)
+        {
+            var market = await _uow.MarketRepo.GetMarket(wayDto.MarketId);
+
+            if (wayDto.WayPoints.Count > 0)
+            {
+                foreach (var wayPoint in wayDto.WayPoints)
+                {
+                    var savedPoint = market.Points.SingleOrDefault(x => x.Latitude == wayPoint.Latitude &&
+                        x.Longitude == wayPoint.Longitude);
+                    
+                    if (savedPoint is not null)
+                    {
+                        market.Points.Remove(savedPoint);
+                        _uow.MarketRepo.RemoveWay(savedPoint);
+                    }
+                }
+            }
+
+            _uow.MarketRepo.UpdateMarket(market);
+
+            if (await _uow.Complete()) return Ok("Successfully removed way");
+
+            return BadRequest("Error removing way");
+        }
+
         //photo
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-photo")]
