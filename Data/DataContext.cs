@@ -36,7 +36,10 @@ namespace fleaApi.Data
                 .HasMany(ur => ur.UserRoles)
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
-                .IsRequired();            
+                .IsRequired();                 
+
+            // modelBuilder.Entity<MarketBarrier>()
+            //     .HasKey(k => new {k.Id, k.MarketId});
         }
     }
 }

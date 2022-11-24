@@ -11,6 +11,6 @@ namespace FleaApp_Api.Entities
         public Market Market { get; set; } 
         public int? MarketId { get; set; } 
         public Shop Shop { get; set; }        
-        public int? ShopId { get; set; }
+        public int? ShopId { get; set; }        
     }
 }

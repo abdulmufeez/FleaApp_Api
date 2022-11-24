@@ -12,6 +12,6 @@ namespace FleaApp_Api.Entities
 
         public AppUser AppUser { get; set; }
         public int AppUserId { get; set; }
-        public ICollection<SubCategory> SubCategory { get; set; }
+        public ICollection<SubCategory> SubCategory { get; set; } = new List<SubCategory>();
     }
 }

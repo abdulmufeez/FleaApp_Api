@@ -36,6 +36,7 @@ namespace FleaApp_Api.Repositories
         {
             return await _context.Markets
                 .Include(x => x.Points)
+                .Include(x => x.Barriers)
                 .Include(x => x.Photos)
                 .Include(X => X.Shop)
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -45,6 +46,7 @@ namespace FleaApp_Api.Repositories
         {
             var market =_context.Markets
                 .Include(x => x.Points)
+                .Include(x => x.Barriers)
                 .Include(x => x.Photos)
                 .Include(x => x.Shop)
                 .Where(m => m.Name == name)
@@ -98,6 +100,11 @@ namespace FleaApp_Api.Repositories
 
         public async Task<bool> MarketExists(string name) 
             => await _context.Markets.AnyAsync(m => m.Name.Contains(name));
+
+        public void RemoveBarrier(MarketBarrier barrier)
+        {
+            throw new NotImplementedException();
+        }
 
         public void RemoveWay(Point point)
         {

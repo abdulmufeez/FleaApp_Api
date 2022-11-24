@@ -184,7 +184,7 @@ namespace FleaApp_Api.Controllers
                 {
                     var savedPoint = market.Points.SingleOrDefault(x => x.Latitude == wayPoint.Latitude &&
                         x.Longitude == wayPoint.Longitude);
-                    
+
                     if (savedPoint is not null)
                     {
                         market.Points.Remove(savedPoint);
@@ -198,6 +198,57 @@ namespace FleaApp_Api.Controllers
             if (await _uow.Complete()) return Ok("Successfully removed way");
 
             return BadRequest("Error removing way");
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPut("create-barrier")]
+        public async Task<ActionResult> CreateBarrier(MakeWayDto barrierDto)
+        {
+            var market = await _uow.MarketRepo.GetMarket(barrierDto.MarketId);
+
+            var barrier = new MarketBarrier { MarketId = market.Id };
+            foreach (var point in barrierDto.WayPoints)
+            {
+                var barrierpoint = new Point
+                {
+                    Longitude = point.Longitude,
+                    Latitude = point.Latitude,
+                    MarketId = market.Id,
+                    Status = StatusEnum.Barrier
+                };
+                barrier.BarrierPoints.Add(barrierpoint);
+            }
+
+            market.Barriers.Add(barrier);
+            _uow.MarketRepo.UpdateMarket(market);
+
+            if (await _uow.Complete()) return Ok("Successfully created barrier");
+
+            return BadRequest("Error creating barrier");
+        }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpDelete("remove-barrier")]
+        public async Task<ActionResult> RemoveBarrier(RemoveBarrierDto barrierDto)
+        {
+            var market = await _uow.MarketRepo.GetMarket(barrierDto.MarketId);
+
+            var barrier = market.Barriers.SingleOrDefault(b => b.Id == barrierDto.BarrierId);
+
+            if (barrier is not null)
+            {
+                foreach (var point in barrier.BarrierPoints)
+                {
+                    _uow.MarketRepo.RemoveWay(point);
+                }
+                market.Barriers.Remove(barrier);
+
+                _uow.MarketRepo.UpdateMarket(market);
+
+                if (await _uow.Complete()) return Ok("Successfully removed barrier");
+            }
+
+            return BadRequest("Error removing barrier");
         }
 
         //photo

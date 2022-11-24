@@ -8,6 +8,6 @@ namespace FleaApp_Api.Entities
         public DateTime CreatedAt { get; set; }
         public Photo ProfilePhoto { get; set; }
         public int? ProfilePhotoId { get; set; }
-        public ICollection<AppUserRole> UserRoles { get; set; }
+        public ICollection<AppUserRole> UserRoles { get; set; } = new List<AppUserRole>();
     }
 }
