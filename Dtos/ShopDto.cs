@@ -13,5 +13,6 @@ namespace FleaApp_Api.Dtos
         public ICollection<PointDto> Points { get; set; }        
         public ICollection<PhotoDto> Photos { get; set; }                      
         public ICollection<ProductDto> Products { get; set; }
+        public ICollection<PointDto> MarketPoints { get; set; } 
     }
 }

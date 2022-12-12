@@ -101,9 +101,9 @@ namespace FleaApp_Api.Repositories
         public async Task<bool> MarketExists(string name) 
             => await _context.Markets.AnyAsync(m => m.Name.Contains(name));
 
-        public void RemoveBarrier(MarketBarrier barrier)
+        public void RemoveBarrier(Point barrier)
         {
-            throw new NotImplementedException();
+            _context.Points.Remove(barrier);
         }
 
         public void RemoveWay(Point point)

@@ -19,13 +19,16 @@ namespace FleaApp_Api.Helpers
             CreateMap<UpdateMarketDto, Market>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
             
-            CreateMap<PointDto, Point>();       
-            CreateMap<Point, PointDto>();
+            CreateMap<PointDto, Point>();                
+            CreateMap<Point, PointDto>()
+                .ForMember(d => d.PointStatus, o => o.MapFrom(s => s.Status.ToString()));
             CreateMap<Photo, PhotoDto>();
 
             CreateMap<Shop, ShopDto>()
                 .ForMember(d => d.MainPhotoUrl, o => o.MapFrom(s => s.Photos.SingleOrDefault(p => p.IsMain).Url))
-                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));               
+                .ForMember(d => d.Points, o => o.MapFrom(s => s.Points))
+                .ForMember(d => d.MarketPoints, o => o.MapFrom(s => s.Market.Points.ToList()));            
+                //.ForMember(d => d.MarketPoints, o => o.MapFrom(s => s.Market.Points.ToList()));               
             CreateMap<ShopDto, Shop>()
                 .ForMember(d => d.Points, o => o.MapFrom(s => s.Points));
             CreateMap<CreateShopDto, Shop>()

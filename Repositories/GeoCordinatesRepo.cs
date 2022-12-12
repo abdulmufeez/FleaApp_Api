@@ -20,7 +20,7 @@ namespace FleaApp_Api.Repositories
         public async Task<IEnumerable<PointDto>> GetMarketCordinate(int id)
         {
             return await _context.Points
-                .Where(x => x.MarketId == id)
+                .Where(x => x.MarketId == id && x.ShopId == null)
                 .OrderBy(x => x.Id)
                 .ProjectTo<PointDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();

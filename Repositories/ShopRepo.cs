@@ -56,6 +56,7 @@ namespace FleaApp_Api.Repositories
             var shop =_context.Shops
                 .Include(x => x.Points)
                 .Include(x => x.Photos)
+                .Include(x => x.Market.Points)
                 .Where(m => m.Name == name)
                 .ProjectTo<ShopDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()
@@ -69,6 +70,7 @@ namespace FleaApp_Api.Repositories
              var shop =_context.Shops
                 .Include(x => x.Points)
                 .Include(x => x.Photos)
+                .Include(x => x.Market.Points)
                 .Where(m => m.Id == id)
                 .ProjectTo<ShopDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking()

@@ -10,7 +10,7 @@ namespace FleaApp_Api.Interfaces
         void UpdateMarket (Market market);
         void DeleteMarket (Market market);
         void RemoveWay (Point point);
-        void RemoveBarrier(MarketBarrier barrier);
+        void RemoveBarrier(Point barrier);
         Task<bool> MarketExists(string name);
         Task<MarketDto> GetMarketAsync (string name);
         Task<MarketDto> GetMarketAsync (int id);     

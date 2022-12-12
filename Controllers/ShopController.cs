@@ -60,37 +60,41 @@ namespace FleaApp_Api.Controllers
         [HttpPost("create-shop")]
         public async Task<ActionResult> CreateShop(CreateShopDto shopDto)
         {
-            shopDto.Name = shopDto.Name.ToLower();
-
-            var shop = _mapper.Map<Shop>(shopDto);
-            shop.CreatedAt = DateTime.Now;
-            shop.isOpen = true;
-            shop.isDisabled = false;
-            shop.AppUserId = User.GetAppUserId();
-
-            //shop.Points.First().Status = StatusEnum.EntryPoint;
-            foreach (var item in shop.Points)
+            if (shopDto.MarketId > 0)
             {
-                item.Status = StatusEnum.Boundry;
-                item.MarketId = shop.MarketId;
-            }
-            shop.Points.Add(
-                new Point
+                shopDto.Name = shopDto.Name.ToLower();
+
+                var shop = _mapper.Map<Shop>(shopDto);
+                shop.CreatedAt = DateTime.Now;
+                shop.isOpen = true;
+                shop.isDisabled = false;
+                shop.AppUserId = User.GetAppUserId();
+
+                //shop.Points.First().Status = StatusEnum.EntryPoint;
+                foreach (var item in shop.Points)
                 {
-                    Latitude = shopDto.CenterPoint.Latitude,
-                    Longitude = shopDto.CenterPoint.Longitude,
-                    Status = StatusEnum.CenterPoint,
-                    MarketId = shop.MarketId
-                });
+                    item.Status = StatusEnum.Boundry;
+                    item.MarketId = shop.MarketId;
+                }
+                shop.Points.Add(
+                    new Point
+                    {
+                        Latitude = shopDto.CenterPoint.Latitude,
+                        Longitude = shopDto.CenterPoint.Longitude,
+                        Status = StatusEnum.CenterPoint,
+                        MarketId = shop.MarketId
+                    });
 
-            if (await _uow.ShopRepo.AddShop(shop))
-            {
-                if (await _uow.Complete()) return Ok("Successfully Added");
+                if (await _uow.ShopRepo.AddShop(shop))
+                {
+                    if (await _uow.Complete()) return Ok("Successfully Added");
 
-                return BadRequest("Error Creating entity");
+                    return BadRequest("Error Creating entity");
+                }
+
+                return BadRequest("You must step on another one's property when creating your property!");
             }
-
-            return BadRequest("You must step on another one's property when creating your property!");
+            else return BadRequest("You must have to provide market Id");
         }
 
         [Authorize(Policy = "RequireShopKeeperRole")]
@@ -107,7 +111,7 @@ namespace FleaApp_Api.Controllers
                 //shop.Points.First().Status = StatusEnum.EntryPoint;
                 foreach (var item in shop.Points)
                 {
-                    item.Status = StatusEnum.Boundry;                    
+                    item.Status = StatusEnum.Boundry;
                 }
                 if (updateShop.CenterPoint is not null)
                 {
