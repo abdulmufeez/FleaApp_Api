@@ -1,3 +1,4 @@
+using System.Text;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using fleaApi.Data;
@@ -96,6 +97,46 @@ namespace FleaApp_Api.Repositories
                 query.ProjectTo<MarketDto>(_mapper.ConfigurationProvider)
                 .AsNoTracking(),
                     marketParams.PageNumber, marketParams.PageSize);
+        }
+
+        public async Task<bool> MakeJoins(int to, int from)
+        {
+            var toPoint = await _context.Points.SingleOrDefaultAsync(p => p.Id == to);
+            var fromPoint = await _context.Points.SingleOrDefaultAsync(p => p.Id == from);
+
+            if (toPoint is not null && fromPoint is not null)
+            {
+                if (string.IsNullOrEmpty(toPoint.Neighbors))
+                {
+                    var fromId = Convert.ToString(fromPoint.Id);
+                    toPoint.Neighbors = fromId;
+                }
+                else
+                {
+                    var strBuilder = new StringBuilder(toPoint.Neighbors);
+                    strBuilder.Append("-");
+                    strBuilder.Append(Convert.ToString(fromPoint.Id));
+                    toPoint.Neighbors = strBuilder.ToString();
+                }
+
+                if (string.IsNullOrEmpty(fromPoint.Neighbors))
+                {
+                    var toId = Convert.ToString(toPoint.Id);
+                    fromPoint.Neighbors = toId;
+                }
+                else
+                {
+                    var strBuilder = new StringBuilder(fromPoint.Neighbors);
+                    strBuilder.Append("-");
+                    strBuilder.Append(Convert.ToString(toPoint.Id));
+                    fromPoint.Neighbors = strBuilder.ToString();
+                }
+                _context.Points.Update(toPoint);
+                _context.Points.Update(fromPoint);
+                return true;
+            }
+
+            return false;
         }
 
         public async Task<bool> MarketExists(string name) 

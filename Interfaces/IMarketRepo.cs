@@ -15,6 +15,7 @@ namespace FleaApp_Api.Interfaces
         Task<MarketDto> GetMarketAsync (string name);
         Task<MarketDto> GetMarketAsync (int id);     
         Task<Market> GetMarket(int id); 
+        Task<bool> MakeJoins(int to, int from);
         
         Task<PagedList<MarketDto>> GetMarketsAsync(MarketParams marketParams);      
     }

@@ -251,6 +251,18 @@ namespace FleaApp_Api.Controllers
             return BadRequest("Error removing barrier");
         }
 
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("make-joins")]
+        public async Task<ActionResult> MakeJoins(int to, int from)
+        {
+            var flag = await _uow.MarketRepo.MakeJoins(to,from);
+            if (flag)
+            {
+                if (await _uow.Complete()) return Ok("Successfully make join");
+            }
+            return BadRequest("Something is wrong !");
+        }
+
         //photo
         [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("add-photo")]
