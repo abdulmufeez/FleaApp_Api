@@ -17,8 +17,9 @@ namespace fleaApi.Extensions
         {
             services.AddDbContext<DataContext>(options => 
             {
-                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
+            
             services.AddControllers();
             services.AddCors();
             services.AddEndpointsApiExplorer();

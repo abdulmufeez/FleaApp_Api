@@ -1,4 +1,5 @@
 using FleaApp_Api.Entities;
+using FleaApp_Api.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,7 +28,7 @@ namespace FleaApp_Api.Data.SeedData
             {
                 UserName = "admin",
                 Email = "admin@example.com",
-                CreatedAt = DateTime.Now,
+                CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc(),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             await userManager.CreateAsync(admin, "admin@123");
@@ -37,7 +38,7 @@ namespace FleaApp_Api.Data.SeedData
             {
                 UserName = "shopkeeper",
                 Email = "shopkeeper@example.com",
-                CreatedAt = DateTime.Now,
+                CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc(),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             await userManager.CreateAsync(shopKeepr, "shopkeeper@123");
@@ -47,7 +48,7 @@ namespace FleaApp_Api.Data.SeedData
             {
                 UserName = "testuser",
                 Email = "testuser@example.com",
-                CreatedAt = DateTime.Now,
+                CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc(),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             await userManager.CreateAsync(testUser, "testuser@123");

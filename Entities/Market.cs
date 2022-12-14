@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using FleaApp_Api.Extensions;
 
 namespace FleaApp_Api.Entities
 {
@@ -13,7 +14,7 @@ namespace FleaApp_Api.Entities
         public string Location { get; set; }
         public bool isOpen { get; set; }
         public bool isDisabled { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
         
 
         public AppUser AppUser { get; set; }

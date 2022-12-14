@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using FleaApp_Api.Entities;
+using FleaApp_Api.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,7 +41,7 @@ namespace FleaApp_Api.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc().AddDays(7),
                 SigningCredentials = signInCreds
             };
             

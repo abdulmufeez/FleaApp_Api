@@ -63,7 +63,7 @@ namespace FleaApp_Api.Controllers
             productDto.Name = productDto.Name.ToLower();
 
             var product = _mapper.Map<Product>(productDto);
-            product.CreatedAt = DateTime.Now;
+            product.CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
             product.isSoldOut = false;
 
             _uow.ProductRepo.AddProduct(product);

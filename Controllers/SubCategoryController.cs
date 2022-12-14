@@ -69,7 +69,7 @@ namespace FleaApp_Api.Controllers
             if (!await _uow.SubCategoryRepo.SubCategoryExist(createSubCategoryDto.Name.ToLower()))
             {
                 var subcategory = _mapper.Map<SubCategory>(createSubCategoryDto);
-                subcategory.CreatedAt = DateTime.Now;
+                subcategory.CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
                 subcategory.AppUserId = User.GetAppUserId();
 
                 _uow.SubCategoryRepo.AddSubCategory(subcategory);

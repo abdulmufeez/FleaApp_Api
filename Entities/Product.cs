@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using FleaApp_Api.Extensions;
 
 namespace FleaApp_Api.Entities
 {
@@ -9,7 +10,7 @@ namespace FleaApp_Api.Entities
         public string Name { get; set; }
         public string Desc { get; set; }
         public bool isSoldOut { get; set; } = false;
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
 
 
         public Shop Shop { get; set; }

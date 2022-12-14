@@ -65,7 +65,7 @@ namespace FleaApp_Api.Controllers
                 shopDto.Name = shopDto.Name.ToLower();
 
                 var shop = _mapper.Map<Shop>(shopDto);
-                shop.CreatedAt = DateTime.Now;
+                shop.CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
                 shop.isOpen = true;
                 shop.isDisabled = false;
                 shop.AppUserId = User.GetAppUserId();

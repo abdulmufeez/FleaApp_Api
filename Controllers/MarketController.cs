@@ -68,7 +68,7 @@ namespace FleaApp_Api.Controllers
             if (!await _uow.MarketRepo.MarketExists(marketDto.Name))
             {
                 var market = _mapper.Map<Market>(marketDto);
-                market.CreatedAt = DateTime.Now;
+                market.CreatedAt = (DateTime.SpecifyKind(DateTime.Now,DateTimeKind.Utc)).SetKindUtc();
                 market.isOpen = true;
                 market.isDisabled = false;
                 market.AppUserId = User.GetAppUserId();

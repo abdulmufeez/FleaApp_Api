@@ -35,4 +35,6 @@ app.MapControllers();
 
 //app.MapFallbackToController("Index","Fallback"); 
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 app.Run();
