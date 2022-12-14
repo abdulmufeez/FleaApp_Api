@@ -119,20 +119,20 @@ namespace FleaApp_Api.Repositories
                     toPoint.Neighbors = strBuilder.ToString();
                 }
 
-                if (string.IsNullOrEmpty(fromPoint.Neighbors))
-                {
-                    var toId = Convert.ToString(toPoint.Id);
-                    fromPoint.Neighbors = toId;
-                }
-                else
-                {
-                    var strBuilder = new StringBuilder(fromPoint.Neighbors);
-                    strBuilder.Append("-");
-                    strBuilder.Append(Convert.ToString(toPoint.Id));
-                    fromPoint.Neighbors = strBuilder.ToString();
-                }
+                // if (string.IsNullOrEmpty(fromPoint.Neighbors))
+                // {
+                //     var toId = Convert.ToString(toPoint.Id);
+                //     fromPoint.Neighbors = toId;
+                // }
+                // else
+                // {
+                //     var strBuilder = new StringBuilder(fromPoint.Neighbors);
+                //     strBuilder.Append("-");
+                //     strBuilder.Append(Convert.ToString(toPoint.Id));
+                //     fromPoint.Neighbors = strBuilder.ToString();
+                // }
                 _context.Points.Update(toPoint);
-                _context.Points.Update(fromPoint);
+                //_context.Points.Update(fromPoint);
                 return true;
             }
 

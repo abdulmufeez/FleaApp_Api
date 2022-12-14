@@ -17,6 +17,11 @@ namespace FleaApp_Api.Repositories
             _context = context;
         }
 
+        public Task<IEnumerable<PointDto>> GetLocationPath(LocationPathDto locationPathDto)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<PointDto>> GetMarketCordinate(int id)
         {
             return await _context.Points
