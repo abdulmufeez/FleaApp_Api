@@ -6,6 +6,7 @@ namespace FleaApp_Api.Interfaces
     {
         Task<IEnumerable<PointDto>> GetMarketCordinate(int id);
         Task<IEnumerable<PointDto>> GetShopCordinate(int id);
-        Task<IEnumerable<PointDto>> GetLocationPath(LocationPathDto locationPathDto);
+        Task<IEnumerable<PointDto>> GetLocationPath(GetDistanceDto getDistanceDto);
+
     }
 }

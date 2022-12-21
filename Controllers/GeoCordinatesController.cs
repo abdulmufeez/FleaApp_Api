@@ -34,5 +34,19 @@ namespace FleaApp_Api.Controllers
 
             return BadRequest("There is no findings :)");
         }
+        
+        [HttpGet("get-shortest-path")]
+        public async Task<ActionResult<IEnumerable<PointDto>>> GetPath(GetDistanceDto dto)
+        {
+            if (dto.MarketId == 0) return BadRequest("Please provide Market Id");
+            if (dto.ShopId == 0) return BadRequest("Please provide Shop Id");
+            if (dto.CurrentPosition is null) return BadRequest("Please provide complete details about current Location");
+            
+            var cordinates = await _uow.GeoCordinatesRepo.GetLocationPath(dto);
+
+            if (cordinates.Count() > 0) return Ok(cordinates);
+
+            return BadRequest("Something Bad Happens :(");
+        }
     }
 }
